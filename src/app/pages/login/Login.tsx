@@ -1,5 +1,16 @@
+import {useNavigate} from "react-router-dom"
+
 export const Login = () => {
+    const history = useNavigate();
+    
+    const handleClick = () => {
+        history('pagina-inicial');
+    }
+
     return (
-        <p>Login</p>
+        <div>
+            Login
+            <button onClick={handleClick}>Página Inicial</button>
+        </div>
     )
 }
