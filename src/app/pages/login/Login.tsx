@@ -1,6 +1,13 @@
-import { useCallback, useMemo, useEffect, useState } from "react";
+import { useRef, useCallback, useMemo, useEffect, useState } from "react";
 
 export const Login = () => {
+    // HOOK: useRef (armazenar elementos HTML dentro de uma variável e este valor não será alterado conforme o componente é alterado)
+    // Pode guardar um valor que pode ser alterado posteriormente caso a gente queira, senão, fica armazenado independente das renderizações
+    // Por exemplo, colocar o focus dentro de um input ao atualizar uma página
+    const inputPasswordRef = useRef<HTMLInputElement>(null);
+    const inputEmailRef = useRef<HTMLInputElement>(null);
+    const inputButtonRef = useRef<HTMLButtonElement>(null);
+
     // HOOK: useState
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -14,6 +21,9 @@ export const Login = () => {
         } else {
             console.log("O usuário NÃO gosta de tecnologia")
         }
+
+        // Ao inicializar, o input do email começa selecionado
+        inputEmailRef.current?.focus()
     }, []);
 
     // Pode por mais de um useEffect (quantos quiser)
@@ -56,15 +66,29 @@ export const Login = () => {
 
                 <label>
                     <span>Email</span>
-                    <input value={email} onChange={e => setEmail(e.target.value)} />
+                    <input 
+                        ref={inputEmailRef}
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        // ao apertar enter, ele mudará o focus para o useRef (HTML input) password
+                        onKeyDown={e => e.key === 'Enter' ? inputPasswordRef.current?.focus() : undefined} />
                 </label>
 
                 <label>
                     <span>Senha</span>
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                    <input 
+                        ref={inputPasswordRef}
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        // ao apertar enter, ele ira dar um 'click' no inputEmailRef
+                        onKeyDown={e => e.key === 'Enter' ? inputButtonRef.current?.click() : undefined} />
                 </label>
 
-                <button type="button" onClick={handleEntrar}>
+                <button 
+                    ref={inputButtonRef}
+                    type="button" 
+                    onClick={handleEntrar}>
                     Entrar
                 </button>
 
