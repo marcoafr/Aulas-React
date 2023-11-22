@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "react";
+import { useCallback, useMemo, useEffect, useState } from "react";
 
 export const Login = () => {
     // HOOK: useState
@@ -39,10 +39,14 @@ export const Login = () => {
         return email.length * 1000;
     }, [email.length]);
 
-
-    const handleEntrar = () => {
-
-    }
+    // HOOK: useCallback (armazenar uma função em memória / em uma variável)
+    // é melhor usar ela do que uma função diretamente no controlador, pois
+    // assim, ela não vai ficar sendo criada toda vez que o componente rerenderizar
+    // ela é criada sempre que há alteração em algum elemento do Array de dependências, e pode ser chamada em diversos contextos
+    const handleEntrar = useCallback(() => {
+        console.log(email);
+        console.log(password); 
+    }, [email, password])
 
 
     return (
