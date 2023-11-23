@@ -9,7 +9,7 @@ export const Dashboard = () => {
     const counterRef = useRef({counter:0});
 
     // HOOK: useContext para receber e trabalhar com variáveis persistidas em um context
-    const {nomeDoUsuario} = useUsuarioLogado();
+    const {nomeDoUsuario, logout} = useUsuarioLogado();
 
     return (
         <div>
@@ -24,12 +24,14 @@ export const Dashboard = () => {
                 onClick={() => counterRef.current.counter++}>
                     Somar
             </button>
+            
             <button
                 // Vai apresentar o valor atual do counterRef, pois ele está sendo alterado, mas não renderizado
                 onClick={() => console.log(counterRef.current.counter)}>
                     Mostrar valor no console
             </button>
 
+            <button onClick={logout}>Logout</button>
             <Link to="/entrar">Login</Link>
         </div>
     )
