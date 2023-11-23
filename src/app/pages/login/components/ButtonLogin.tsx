@@ -1,4 +1,4 @@
-import React, { HTMLAttributeReferrerPolicy } from "react";
+import React from "react";
 
 interface IButtonLoginProps {
     onClick: () => void;

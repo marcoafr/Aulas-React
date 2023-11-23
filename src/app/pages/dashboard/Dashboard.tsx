@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { UsuarioLogadoContext, UsuarioLogadoProvider } from '../../shared/contexts';
 
 export const Dashboard = () => {
     // HOOK: useRef - outra aplicação (Armazenar valor em uma variável, sem alterar a renderização do valor)
@@ -7,10 +8,14 @@ export const Dashboard = () => {
     // pode-se usar um useRef para isso
     const counterRef = useRef({counter:0});
 
+    // HOOK: useContext para receber e trabalhar com variáveis persistidas em um context
+    const {nomeDoUsuario} = useContext(UsuarioLogadoContext);
 
     return (
         <div>
             <p>Dashboard</p>
+
+            <p>{nomeDoUsuario}</p>
 
             <p>Contador: {counterRef.current.counter}</p>
 
