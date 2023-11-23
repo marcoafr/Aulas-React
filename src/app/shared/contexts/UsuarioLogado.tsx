@@ -13,7 +13,7 @@ interface IUsuarioLogadoProviderProps {
 export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProviderProps> = ({ children }) => {
     const [nome, setNome] = useState('');
     return (
-        <UsuarioLogadoContext.Provider value={{nomeDoUsuario: 'Marco'}}>
+        <UsuarioLogadoContext.Provider value={{nomeDoUsuario: 'Teste'}}>
             {children}
         </UsuarioLogadoContext.Provider>
     )
