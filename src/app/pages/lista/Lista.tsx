@@ -22,19 +22,24 @@ export const Lista = () => {
 
             const value = e.currentTarget.value;
 
-            e.currentTarget.value = ''
+            e.currentTarget.value = '';
 
-            setLista((oldLista) => {
-                if (oldLista.some((listItem) => listItem.title === value)) return oldLista;
-                return [...oldLista, {
-                    id: oldLista.length,
-                    title: value,
-                    isCompleted: false
-                }]
-            });
+            if (lista.some((listItem) => listItem.title === value)) return;
 
+            TarefasService.create({
+                title: value,
+                isCompleted: false
+            }).then(result => {
+                if (result instanceof ApiException) {
+                    alert(result.message);
+                } else {
+                    setLista((oldLista) => {
+                        return [...oldLista, result]
+                    });
+                }
+            })
         }
-    }, []);
+    }, [lista]);
 
     return (
         <div>
