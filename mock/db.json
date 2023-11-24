@@ -1,24 +1,14 @@
 {
-  "posts": [
+  "tarefas": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "title": "Tarefa 01",
+      "isCompleted": false
     },
     {
-      "title": "production",
-      "author": "Marco",
-      "id": 2
+      "id": 2,
+      "title": "Tarefa 02",
+      "isCompleted": false
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
