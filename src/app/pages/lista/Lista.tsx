@@ -64,6 +64,19 @@ export const Lista = () => {
         })
     }, [lista])
 
+    const handleDelete = useCallback((id: number) => {
+        TarefasService.deleteById(id)
+        .then(result => {
+            if (result instanceof ApiException) {
+                alert(result.message);
+            } else {
+                setLista(oldLista => {
+                    return oldLista.filter(oldListItem => oldListItem.id !== id);
+                })
+            }
+        })
+    }, [])
+
     return (
         <div>
             <p>Lista</p>
@@ -82,6 +95,7 @@ export const Lista = () => {
                             checked={listItem.isCompleted}
                             onChange={() => handleToggleComplete(listItem.id)} />
                         {listItem.title}
+                        <button onClick={() => handleDelete(listItem.id)}>Apagar</button>
                         </li>;
                 })}
             </ul>
