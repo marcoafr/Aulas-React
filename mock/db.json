@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Tarefa 01",
-      "isCompleted": false
+      "isCompleted": true
     },
     {
       "id": 2,
@@ -17,8 +17,13 @@
     },
     {
       "title": "Teste 01",
-      "isCompleted": false,
+      "isCompleted": true,
       "id": 4
+    },
+    {
+      "title": "teste 02",
+      "isCompleted": false,
+      "id": 5
     }
   ]
 }
