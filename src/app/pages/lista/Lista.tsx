@@ -1,8 +1,16 @@
 import { useCallback, useState } from "react"
 
+interface IListItem {
+    title: string;
+    isSelected: boolean;
+}
+
 
 export const Lista = () => {
-    const [lista, setLista] = useState<string[]>(['Teste 1', 'Teste 2', 'Teste 3']);
+    const [lista, setLista] = useState<IListItem[]>([
+        {title:'Teste 1', isSelected: false}, 
+        {title:'Teste 2', isSelected: false}, 
+        {title:'Teste 3', isSelected: false}]);
 
     const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === 'Enter') {
@@ -14,8 +22,11 @@ export const Lista = () => {
             e.currentTarget.value = ''
 
             setLista((oldLista) => {
-                if (oldLista.includes(value)) return oldLista;
-                return [...oldLista, value]
+                if (oldLista.some((listItem) => listItem.title === value)) return oldLista;
+                return [...oldLista, {
+                    title: value,
+                    isSelected: false
+                }]
             });
 
         }
@@ -29,9 +40,30 @@ export const Lista = () => {
                 onKeyDown={handleInputKeyDown}
             />
 
+            <p>{lista.filter((listItem) => listItem.isSelected).length}</p>
+
             <ul>
-                {lista.map((value, index) => {
-                    return <li key={value}>{value}</li>;
+                {lista.map((listItem, index) => {
+                    return <li key={listItem.title}>
+                        <input 
+                            type="checkbox" 
+                            checked={listItem.isSelected}
+                            onChange={() => {
+                                setLista(oldLista => {
+                                    return oldLista.map(oldListItem => {
+                                        const newIsSelected = oldListItem.title === listItem.title ? 
+                                            !oldListItem.isSelected
+                                            : oldListItem.isSelected
+                                        return {
+                                            ...oldListItem,
+                                            isSelected: newIsSelected
+                                        }
+                                    });
+                                })
+                        }}>
+                        </input>
+                        {listItem.title}
+                        </li>;
                 })}
             </ul>
 
